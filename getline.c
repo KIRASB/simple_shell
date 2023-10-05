@@ -2,11 +2,11 @@
 
 int main()
 {
-	char **token, *str = malloc(1024);
+	char *token, *str = malloc(1024);
 	size_t i, len = 1024;
 	int index = 0;
 	
-	while (i != -1)
+	while (1)
 	{	
 		printf("$ ");
 		getline(&str, &len, stdin);
