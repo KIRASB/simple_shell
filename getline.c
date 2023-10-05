@@ -4,18 +4,19 @@ int main()
 {
 	char **token, *str = malloc(1024);
 	size_t i, len = 1024;
-	
+	int index = 0;
 	
 	while (i != -1)
 	{	
 		printf("$ ");
 		getline(&str, &len, stdin);
-		token = strtok(str, " ");
+		token[index] = strtok(str, " ");
 
 	while (token != NULL)
 	{
-		printf("%s\n", token);
-		token = strtok(NULL, " ");
+		printf("%s\n", token[index]);
+		token[index] = strtok(NULL, " ");
+		index++;
 
 	}
 	}
