@@ -10,15 +10,16 @@ int main()
 	{	
 		printf("$ ");
 		i = getline(&str, &len, stdin);
+		
 		if (i == -1)
 			exit(EXIT_FAILURE);
 
-		token[index] = strtok(str, " ");
+		*token = strtok(str, " ");
 
 	while (token[index] != NULL)
 	{
-		printf("%s\n", token[index]);
-		token[index] = strtok(NULL, " ");
+		printf("%s\n", &token);
+		token = strtok(NULL, " ");
 		index++;
 
 	}
