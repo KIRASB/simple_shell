@@ -2,25 +2,27 @@
 
 int main()
 {
-	char **token, *str = malloc(1024);
-	size_t i, len = 1024;
-	int index = 0;
+	char *token, *str = malloc(1024);
+	size_t len = 1024;
+	int i;
 	
 	while (1)
 	{	
 		printf("$ ");
 		i = getline(&str, &len, stdin);
 		if (i == -1)
+		{
+			printf("Disconected\n");
 			exit(EXIT_FAILURE);
+		}
+		token = strtok(str, " ");
 
-		token[index] = strtok(str, " ");
-
-	while (token[index] != NULL)
+	while (token != NULL)
 	{
-		printf("%s\n", token[index]);
-		token[index] = strtok(NULL, " ");
-		index++;
+		printf("%s\n", token);
+		token = strtok(NULL, " ");
 
 	}
 	}
+	free(str);
 }
