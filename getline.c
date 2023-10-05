@@ -6,13 +6,16 @@ int main()
 	size_t i, len = 1024;
 	int index = 0;
 	
-	while (i != -1)
+	while (1)
 	{	
 		printf("$ ");
-		getline(&str, &len, stdin);
+		i = getline(&str, &len, stdin);
+		if (i == -1)
+			exit(EXIT_FAILURE);
+
 		token[index] = strtok(str, " ");
 
-	while (token != NULL)
+	while (token[index] != NULL)
 	{
 		printf("%s\n", token[index]);
 		token[index] = strtok(NULL, " ");
