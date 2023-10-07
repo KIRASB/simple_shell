@@ -7,6 +7,7 @@ int main()
 {
 	char *token, *str = malloc(1024);
 	size_t len = 1024;
+	char **env = get_env();
 	int i;
 
 	while (1)
@@ -20,13 +21,13 @@ int main()
 		}
 		token = strtok(str, " ");
 
-	while (token != NULL)
-	{
 		char *argv[] = {token, NULL};
 
-		execve(token, argv, NULL);
-		token = strtok(NULL, " ");
-	}
+		i = execve(token, argv, env);
+		if (i == -1)
+			printf("command noot found");
+		else
+			return 0;
 	}
 	free(str);
 }

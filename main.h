@@ -8,5 +8,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+/** protoypes */
+
+char **get_env();
 
 #endif
