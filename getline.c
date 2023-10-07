@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "main.h"
 
 int main()
@@ -5,7 +8,7 @@ int main()
 	char *token, *str = malloc(1024);
 	size_t len = 1024;
 	int i;
-	
+
 	while (1)
 	{	
 		printf("$ ");
@@ -19,9 +22,10 @@ int main()
 
 	while (token != NULL)
 	{
-		printf("%s\n", token);
-		token = strtok(NULL, " ");
+		char *argv[] = {token, NULL};
 
+		execve(token, argv, NULL);
+		token = strtok(NULL, " ");
 	}
 	}
 	free(str);
