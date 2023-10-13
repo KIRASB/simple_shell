@@ -1,14 +1,13 @@
 #include "main.h"
 #include <sys/wait.h>
 
-char  *get_cmd()
+char *get_cmd()
 {
-	char *cmd, *fcmd, *cmdline = malloc(1024);
+	char *fcmd, *cmdline = malloc(1024);
 	size_t len = 1024;
-	char **env = get_env();
-	int i, le, j = 0;
-
-
+	int i, j = 0;
+	fcmd = cmdline;
+	
 	while (1)
 	{	
 		printf("$ ");
@@ -18,35 +17,40 @@ char  *get_cmd()
 			printf("\n\n[Disconected...]\n");
 			exit(EXIT_FAILURE);
 		}
-		cmd = strtok(cmdline, " ");
-		le = strlen(cmd);
 
-		fcmd = cmd;
-			while (fcmd[j] != '\0')
+		//cmd = token_it(cmdline, " ");
+		//printf("%s", cmd[0]);
+
+			while (cmdline[j] != '\0')
 			{
-				if (fcmd[j] == '\n')
+				if (cmdline[j] == '\n')
 				{
-					fcmd[j] = '\0';
+					cmdline[j] = '\0';
 					break;
 				}
-				fcmd[j] = cmd[j];
+				fcmd[j] = cmdline[j];
 				j++;
 			}
-
+/*
+		if (fcmd[0] == "exit")
+		{
+			printf("\n\n[Disconected...]\n");
+			exit(EXIT_FAILURE);
+		}
+	
 		char *argv[] = {cmd, NULL};
 
-		pid = fork();
+		int pid = fork();
 		waitpid(pid, NULL, WNOHANG);
 		if (pid == 0)
 		{
-		i = execve(cmd, argv, env);
+		i = execve(fcmd, argv, env);
 		if (i == -1)
 			printf("command not found\n");
 		}
 		if(pid == -1)
 		printf("fork is fail\n");
-	
-	}
+	*/	
 	return (cmdline);
 	free(cmdline);
-}
+}}
