@@ -1,6 +1,6 @@
 #include "main.h"
 
-int execute(char **args)
+int execute(char *args)
 {
 	char *const ar[] = {"-l", NULL};
 	char *allpaths = NULL;
@@ -39,7 +39,11 @@ int execute(char **args)
 		//stick each path to the input comand
 		path_and_file[0] = paths[size - 1];
 		strcat(path_and_file[0], "/");
+<<<<<<< HEAD
 		strcat(path_and_file[0], args[0]);
+=======
+		strcat(path_and_file[0], args);
+>>>>>>> e7a1c972b26cb133c95f593f10d9246074b663ef
 		//path_and_file[3] = '\0';
 		//printf("the path file is: %s\n", path_and_file[0]);
 
@@ -52,7 +56,10 @@ int execute(char **args)
 	real_cmd = path_and_file[0];
 	
 	while(path_and_file[i])
+<<<<<<< HEAD
 	{
+=======
+>>>>>>> e7a1c972b26cb133c95f593f10d9246074b663ef
 	//printf("the path_and_file: %s\n", path_and_file[0]);
 
 		
@@ -65,12 +72,19 @@ int execute(char **args)
 		else if(check == 0)
 		{
 			real_cmd = path_and_file[0];
+<<<<<<< HEAD
 			arg = args[0];
 			args[0] = real_cmd;
 			break;
 		}
 		i++;
 	}
+=======
+			break;
+		}
+		i++;
+	
+>>>>>>> e7a1c972b26cb133c95f593f10d9246074b663ef
 	//printf("the real command: %s\n", real_cmd);
 	//free the momiry of the array
 
@@ -84,10 +98,14 @@ int execute(char **args)
 	}
 	if(pid == 0)
 	{
-		check = execve(real_cmd, args, NULL);
+		check = execve(real_cmd, ar, NULL);
 		if(check == -1)
 		{
+<<<<<<< HEAD
 			printf("%s: command not found\n", arg);
+=======
+			printf("%s: command not found\n", args);
+>>>>>>> e7a1c972b26cb133c95f593f10d9246074b663ef
 			exit(EXIT_FAILURE);
 		}
 		if(check == 0)
@@ -103,3 +121,4 @@ int execute(char **args)
 	free(paths);
 	return (0);
 }
+

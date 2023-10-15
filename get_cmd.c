@@ -6,6 +6,7 @@ char *get_cmd()
 	char *fcmd, *cmdline = malloc(1024);
 	size_t len = 1024;
 	int i, j = 0;
+	char *e = "exit";
 	fcmd = cmdline;
 	
 	while (1)
@@ -31,6 +32,8 @@ char *get_cmd()
 				fcmd[j] = cmdline[j];
 				j++;
 			}
+			if (cmdline == e)
+				printf("exit is good");
 /*
 		if (fcmd[0] == "exit")
 		{
