@@ -1,91 +1,79 @@
 #include "main.h"
 
-int execute(char *args)
+int execute(char **args)
 {
-	char *const ar[] = {"-l", NULL};
 	char *allpaths = NULL;
 	char **paths = NULL;
-	char *arg = NULL;
 	char **path_and_file = NULL;
 	char *real_cmd = NULL;
 	int i = 0;
-	int size = 1;
+	int size = 0;
 	int check;
 	int status;
 	pid_t pid, ppid;
+	char **copy;
+
+	copy = (char **)malloc(sizeof(char *) * 2);
+	copy[i] = strdup(args[i]);
+	i++;
+	while(args[i] != NULL)
+	{
+		copy = (char **)realloc(copy, sizeof(char *));
+		copy[i] = strdup(args[i]);
+		i++;
+	}
+
 
 	allpaths = getenv("PATH");
-	paths = token_it(allpaths, ":\n\t");
-
-	while (paths[size])
+	printf("1 %s %s\n", copy[0], copy[1]);
+	paths = token_it(allpaths, ":");
+	printf("2 %s %s\n", copy[0], copy[1]);
+	while(paths[size])
 	{
-		//printf("%s\n", paths[size]);
 		size++;
 	}
-	
-	//alocate memory for the array
-	path_and_file = (char **)malloc(sizeof(char *) * (size + 4));
+	//alocate mimory for the array
+	path_and_file = (char **)malloc(sizeof(char *) * (size + 1));
 	if (path_and_file == NULL)
 		return (-1);
 
 	i = 0;
-	//char **path_and_file = paths;
-	//while (path_and_file[i])
-	//{
-		//alocate memory for each pointer in the array
-	//	path_and_file[i] = (char *)malloc(strlen(paths[i]) + strlen(args[0]) + 2);
-		//if(path_and_file[i] == NULL)
-		//	return (-1);
-		//stick each path to the input comand
-		path_and_file[0] = paths[size - 1];
-		strcat(path_and_file[0], "/");
-<<<<<<< HEAD
-		strcat(path_and_file[0], args[0]);
-=======
-		strcat(path_and_file[0], args);
->>>>>>> e7a1c972b26cb133c95f593f10d9246074b663ef
-		//path_and_file[3] = '\0';
-		//printf("the path file is: %s\n", path_and_file[0]);
-
-		i++;
-	//}
-//	free(path_and_file);
-//	free(paths);
-	i = 0;
-	
-	real_cmd = path_and_file[0];
-	
-	while(path_and_file[i])
-<<<<<<< HEAD
+	while (paths[i] != NULL && i < size && copy[0][0] == '/')
 	{
-=======
->>>>>>> e7a1c972b26cb133c95f593f10d9246074b663ef
-	//printf("the path_and_file: %s\n", path_and_file[0]);
+		//alocate memory for each pointer in the array
+		path_and_file[i] = (char *)malloc(strlen(paths[i]) + strlen(args[0]) + 2);
+		if(path_and_file[i] == NULL)
+			return (-1);
 
-		
-	//*check for the access and existence
-		check = access(path_and_file[0], X_OK);
+		//stick each path to the input comand
+		strcat(path_and_file[i], paths[i]);
+		strcat(path_and_file[i], "/");
+		strcat(path_and_file[i], copy[0]);
+		i++;
+	}
+	if(copy[0][0] == '/')
+	{
+		path_and_file[0] = strdup(copy[0]);
+	}
+	i = 0;
+	while(path_and_file[i] != NULL && i < size)
+	{
+		//check for the access and existence
+		check = access(path_and_file[i], X_OK);
 		if(check == -1)		//if it's not the file I want free its mimmory
 		{
 			free(path_and_file[i]);
+			i++;
+			continue;
 		}
-		else if(check == 0)
+		if(check == 0)
 		{
-			real_cmd = path_and_file[0];
-<<<<<<< HEAD
-			arg = args[0];
-			args[0] = real_cmd;
+			real_cmd = path_and_file[i];
+			printf("path ------>>> %s\n", real_cmd);
 			break;
 		}
 		i++;
 	}
-=======
-			break;
-		}
-		i++;
-	
->>>>>>> e7a1c972b26cb133c95f593f10d9246074b663ef
-	//printf("the real command: %s\n", real_cmd);
 	//free the momiry of the array
 
 	free(path_and_file);
@@ -98,14 +86,10 @@ int execute(char *args)
 	}
 	if(pid == 0)
 	{
-		check = execve(real_cmd, ar, NULL);
+		check = execve(real_cmd, args, NULL);
 		if(check == -1)
 		{
-<<<<<<< HEAD
-			printf("%s: command not found\n", arg);
-=======
-			printf("%s: command not found\n", args);
->>>>>>> e7a1c972b26cb133c95f593f10d9246074b663ef
+			printf("%s: command not found\n", args[0]);
 			exit(EXIT_FAILURE);
 		}
 		if(check == 0)
@@ -118,7 +102,5 @@ int execute(char *args)
 		wait(&status);
 	}
 	free(real_cmd);
-	free(paths);
 	return (0);
 }
-
