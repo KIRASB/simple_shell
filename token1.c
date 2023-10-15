@@ -43,7 +43,8 @@ char **token_it(char *ptr, char *del)
 
 int main(void)
 {
-	char **tok = token_it("/bin/ls -la", ":");
+	printf("test");
+	char **tok = token_it("ls -la", " ");
 	printf("%s", tok[0]);
 	execute(tok);
 	return 0;
