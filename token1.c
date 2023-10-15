@@ -50,6 +50,7 @@ char** token_it(char* ptr, char* del)
 
 	free(copy);
 	return (tokens);
+	free(tokens);
 }
 /*int main()
 {

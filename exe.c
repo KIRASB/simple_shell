@@ -5,7 +5,6 @@ int execute(char *args)
 	char *const ar[] = {"-l", NULL};
 	char *allpaths = NULL;
 	char **paths = NULL;
-	char *arg = NULL;
 	char **path_and_file = NULL;
 	char *real_cmd = NULL;
 	int i = 0;
@@ -19,7 +18,6 @@ int execute(char *args)
 
 	while (paths[size])
 	{
-		//printf("%s\n", paths[size]);
 		size++;
 	}
 	
@@ -28,33 +26,28 @@ int execute(char *args)
 	if (path_and_file == NULL)
 		return (-1);
 
-	i = 0;
-	//char **path_and_file = paths;
-	//while (path_and_file[i])
-	//{
 		//alocate memory for each pointer in the array
-	//	path_and_file[i] = (char *)malloc(strlen(paths[i]) + strlen(args[0]) + 2);
-		//if(path_and_file[i] == NULL)
-		//	return (-1);
+		path_and_file[0] = (char *)malloc(strlen(paths[i]) + strlen(args) + 2);
+		
+		if(path_and_file[0] == NULL)
+			return (-1);
+		
 		//stick each path to the input comand
 		path_and_file[0] = paths[size - 1];
 		strcat(path_and_file[0], "/");
 		strcat(path_and_file[0], args);
 		//path_and_file[3] = '\0';
-		//printf("the path file is: %s\n", path_and_file[0]);
+	//	printf("the path file is: %s\n", path_and_file[0]);
 
-		i++;
-	//}
-//	free(path_and_file);
-//	free(paths);
+	
+	free(paths);
+	
 	i = 0;
 	
 	real_cmd = path_and_file[0];
 	
 	while(path_and_file[i])
-	//printf("the path_and_file: %s\n", path_and_file[0]);
-
-		
+	{	
 	//*check for the access and existence
 		check = access(path_and_file[0], X_OK);
 		if(check == -1)		//if it's not the file I want free its mimmory
@@ -69,11 +62,12 @@ int execute(char *args)
 			break;
 		}
 		i++;
-	
+	}
 	//printf("the real command: %s\n", real_cmd);
-	//free the momiry of the array
+	//free the memory of the array
 
 	free(path_and_file);
+	free(path_and_file[0]);
 	//executing process
 	pid = fork();
 	if(pid == -1)
@@ -88,6 +82,7 @@ int execute(char *args)
 		{
 			printf("%s: command not found\n", args);
 			exit(EXIT_FAILURE);
+			free(real_cmd);
 		}
 		if(check == 0)
 		{
@@ -99,7 +94,6 @@ int execute(char *args)
 		wait(&status);
 	}
 	free(real_cmd);
-	free(paths);
 	return (0);
 }
 
