@@ -1,6 +1,6 @@
 #include "main.h"
 
-char** token_it(char* ptr, char* del)
+char** token_it(const char* ptr, const char* del)
 {
     char** tokens = NULL;
     char* copy = strdup(ptr);
@@ -39,4 +39,13 @@ char** token_it(char* ptr, char* del)
 
     free(copy);
     return tokens;
+}
+
+int main(void)
+{
+	char command[] = "ls";
+        char **tok = token_it(command, " ");
+        printf("%s %s\n", tok[0], tok[1]);
+	execute(tok);
+        return 0;
 }
