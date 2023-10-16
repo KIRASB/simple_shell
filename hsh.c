@@ -4,13 +4,28 @@ int main()
 {
 	char *cmd;
 	char **toke_cmd;
-	int i;
+	char *ex = "exit";
+	char *en = "env";
+	int i, j = 0;
 
 	while(1)
 	{
 	cmd = get_cmd();
-	toke_cmd = token_it(cmd, " ");
-	printf("%s\n %s\n %s\n", toke_cmd[0], toke_cmd[1], toke_cmd[2]);
+	
+	i = strcmp(cmd, ex);
+	if (i == 0)
+	{
+		printf("exit\n\n[Disconnect...\n]");
+		exit(EXIT_FAILURE);
 	}
-return 0;
+	i = 0;
+	i = strcmp(cmd, en);
+	
+	if(i == 0)
+		get_env();
+
+	toke_cmd = token_it(cmd, " ");
+	execute(toke_cmd);
+	}
+return (0);
 }
