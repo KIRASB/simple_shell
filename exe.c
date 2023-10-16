@@ -10,24 +10,26 @@ int execute(char **args)
 	int size = 0;
 	int check;
 	int status;
-	pid_t pid, ppid;
+	pid_t pid;
 	char **copy;
 
-	copy = (char **)malloc(sizeof(char *) * 2);
+	copy = (char **)malloc(sizeof(char *));
 	copy[i] = strdup(args[i]);
-	i++;
+
 	while(args[i] != NULL)
 	{
-		copy = (char **)realloc(copy, sizeof(char *));
 		copy[i] = strdup(args[i]);
+		copy = (char **)realloc(copy, sizeof(char *) * (i + 2));
 		i++;
 	}
-
+	copy[i] = NULL;
 
 	allpaths = getenv("PATH");
 	printf("1 %s %s\n", copy[0], copy[1]);
-	paths = token_it(allpaths, ":");
+	paths = token_it(allpaths, ":\t\n");
 	printf("2 %s %s\n", copy[0], copy[1]);
+	
+	size = 0;
 	while(paths[size])
 	{
 		size++;
@@ -38,10 +40,10 @@ int execute(char **args)
 		return (-1);
 
 	i = 0;
-	while (paths[i] != NULL && i < size && copy[0][0] == '/')
+	while (paths[i] != NULL && i < size && copy[0][0] != '/')
 	{
 		//alocate memory for each pointer in the array
-		path_and_file[i] = (char *)malloc(strlen(paths[i]) + strlen(args[0]) + 2);
+		path_and_file[i] = (char *)malloc(strlen(paths[i]) + strlen(copy[0]) + 2);
 		if(path_and_file[i] == NULL)
 			return (-1);
 
@@ -59,7 +61,7 @@ int execute(char **args)
 	while(path_and_file[i] != NULL && i < size)
 	{
 		//check for the access and existence
-		check = access(path_and_file[i], X_OK);
+		check = access(path_and_file[i], F_OK);
 		if(check == -1)		//if it's not the file I want free its mimmory
 		{
 			free(path_and_file[i]);
