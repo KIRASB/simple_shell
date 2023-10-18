@@ -7,9 +7,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
-/** protoypes */
-
-char **get_env();
+int get_env();
+char **token_it(char *ptr, char *del);
+int execute(char **args);
 
 #endif

@@ -9,19 +9,18 @@ char **token_it(char *ptr, char *del)
 	char **tokens;
 	int i = 0;
 	char *token;
-	char *copy = strdup(ptr); //save the original content;
+	char *copy = strdup(ptr);
 
 	tokens = (char **)malloc(sizeof(char *) * 1);
 	if (tokens == NULL)
 		return (NULL);
 	
 	token = strtok(copy, del);
-	//if there is more token the loop keeps working
+	
 	while(token != NULL)
 	{
 		tokens[i] = strdup(token);
-		//new momory for the array
-		tokens = (char **)realloc(tokens, (i + 2) * sizeof(char *));  // !!!
+		tokens = (char **)realloc(tokens, (i + 2) * sizeof(char *));
 		if(tokens == NULL)
 		{
 			return (NULL);
@@ -31,15 +30,19 @@ char **token_it(char *ptr, char *del)
 	}
 	tokens[i] = NULL;
 	free(copy);
-	// maybe need to free the ptr
 	return(tokens);
 }
 
-int main(void)
+/**int main(void)
 {
-	printf("test\n");
+	int i;
+
 	char **tok = token_it("ls -la", " \n");
-	//printf("%s  %s %s %s %s %s %s\n", tok[0], tok[1], tok[2],tok[3], tok[4], tok[5], tok[6]);
 	execute(tok);
+	for (i = 0; tok[i] != NULL; i++)
+	{
+        free(tok[i]);
+	}
+	free(tok);
 	return 0;
-}
+}*/

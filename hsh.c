@@ -21,11 +21,14 @@ int main()
 	i = 0;
 	i = strcmp(cmd, en);
 	
-	if(i == 0)
+	else if(i == 0)
 		get_env();
 
-	toke_cmd = token_it(cmd, " ");
-	execute(toke_cmd);
+	else
+	{
+		toke_cmd = token_it(cmd, " \n\t");
+		execute(toke_cmd);
 	}
+	free(cmd);
 return (0);
 }
