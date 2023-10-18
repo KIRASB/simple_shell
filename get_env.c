@@ -1,8 +1,8 @@
-#include "main.h"
+#include "shell.h"
 
 extern char **environ;
 
-char **get_env()
+int get_env()
 {
 	int i = 0;
 	char **envir = environ;
@@ -11,5 +11,5 @@ char **get_env()
 		printf("%s\n", envir[i]);
 		i++;
 	}
-	return(envir);
+	return 0;
 }
