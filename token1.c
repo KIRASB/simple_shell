@@ -19,7 +19,7 @@ char **token_it(char *ptr, char *del)
 	
 	while(token != NULL)
 	{
-		tokens[i] = strdup(token);
+		tokens[i] = _strdup(token);
 		tokens = (char **)realloc(tokens, (i + 2) * sizeof(char *));
 		if(tokens == NULL)
 		{

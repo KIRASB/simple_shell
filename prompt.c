@@ -32,7 +32,7 @@ int main()
 				continue;
 			}
 
-			check = strcmp(tokens[0], ext);
+			check = _strcmp(tokens[0], ext);
 
 			if(check == 0)
 			{
@@ -40,7 +40,7 @@ int main()
 				exit(EXIT_SUCCESS);
 			}
 
-			check = strcmp(tokens[0], env);
+			check = _strcmp(tokens[0], env);
 			if (check == 0)
 				get_env();
 			else

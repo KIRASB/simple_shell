@@ -19,7 +19,7 @@ int execute(char **args)
 	while(args[i] != NULL)
 	{
 		copy = (char **)realloc(copy, sizeof(char *) * (i + 2));
-		copy[i] = strdup(args[i]);
+		copy[i] = _strdup(args[i]);
 		i++;
 	}
 	copy[i] = NULL;
@@ -43,14 +43,14 @@ int execute(char **args)
 		if(path_and_file[i] == NULL)
 			return (-1);
 
-		strcat(path_and_file[i], paths[i]);
-		strcat(path_and_file[i], "/");
-		strcat(path_and_file[i], copy[0]);
+		_strcat(path_and_file[i], paths[i]);
+		_strcat(path_and_file[i], "/");
+		_strcat(path_and_file[i], copy[0]);
 		i++;
 	}
 	if(copy[0][0] == '/')
 	{
-		path_and_file[0] = strdup(copy[0]);
+		path_and_file[0] = _strdup(copy[0]);
 	}
 	i = 0;
 	while(path_and_file[i] != NULL && i < size)
@@ -64,7 +64,7 @@ int execute(char **args)
 		}
 		if(check == 0)
 		{
-			real_cmd =  strdup(path_and_file[i]);
+			real_cmd =  _strdup(path_and_file[i]);
 			free(path_and_file[i]);
 			break;
 		}
