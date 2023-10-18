@@ -10,15 +10,10 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-<<<<<<< HEAD:main.h
 /** protoypes */
 
+char *_strcat(char *s1, char *s2);
 int get_env();
-char get_line();
-char *get_cmd();
-=======
-int get_env();
->>>>>>> 30d6e11055a9a866b2334fe35035b769176a748d:shell.h
 char **token_it(char *ptr, char *del);
 int execute(char **args);
 
