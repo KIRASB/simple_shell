@@ -33,17 +33,3 @@ char *_strdup(char *str)
 	return (dup);
 }
 
-int main() {
-    char *input = "Hello, World!";
-    char *output = _strdup(input);
-
-    if (output == NULL) {
-        fprintf(stderr, "Failed to duplicate string\n");
-        return EXIT_FAILURE;
-    }
-
-    printf("Duplicated string: %s\n", output);
-    free(output);
-    return EXIT_SUCCESS;
-}
-
