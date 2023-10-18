@@ -12,6 +12,8 @@
 
 /** protoypes */
 
+int _strlen(char *str);
+char *_strdup(char *str);
 int _strcmp(char *s1, char *s2);
 char *_strcat(char *s1, char *s2);
 int get_env();
