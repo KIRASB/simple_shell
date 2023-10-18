@@ -10,6 +10,7 @@ int main()
 	size_t len = 0;
 	size_t ret;
 	char **tokens;
+	ssize_t w_err;
 	int check, i = 0;
 	int fd = 0;
 	char *env = "env";
@@ -18,7 +19,7 @@ int main()
 	while(1)
 	{
 		if (isatty(fd))
-			printf("$ ");
+			w_err = write(1, "$ ", 2);
 
 		ret = getline(&cmd, &len, stdin);
 		if(ret != (size_t)-1)
@@ -35,7 +36,6 @@ int main()
 
 			if(check == 0)
 			{
-				printf("exit...\n");
 				free(cmd);
 				exit(EXIT_SUCCESS);
 			}
@@ -51,7 +51,14 @@ int main()
 		else
 		{
 			if(isatty(fd))
-				printf("Disconected...\n");
+			{
+				w_err = write(1, "\n", 1);
+				if(w_err == -1)
+				{
+					perror("write");
+					return 1;
+				}
+			}
 			exit(EXIT_SUCCESS);
 		}
 		while (tokens[i] != NULL)

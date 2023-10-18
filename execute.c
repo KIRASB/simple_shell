@@ -6,6 +6,7 @@ int execute(char **args)
 	char **paths = NULL;
 	char **path_and_file = NULL;
 	char *real_cmd = NULL;
+	ssize_t w_err1, w_err2;
 	int i = 0;
 	int size = 0;
 	int check;
@@ -74,7 +75,13 @@ int execute(char **args)
 	check = access(real_cmd, X_OK);
 	if(check != 0)
 	{
-		printf("%s: command not found\n", args[0]);
+		w_err1 = write(1, args[0], strlen(args[0]));
+		w_err2 = write(1, " :is not found\n", 15);
+		if(w_err1 == -1 || w_err2 == -1)
+		{
+			perror("write");
+			return 1;
+		}
 	}
 	else
 	{

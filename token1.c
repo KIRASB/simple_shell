@@ -9,11 +9,9 @@ char **token_it(char *ptr, char *del)
 	char **tokens;
 	int i = 0;
 	char *token;
-	char *copy = strdup(ptr); //save the original content;
-	
-	if (ptr == NULL || ptr == "\n")
-		return (0);
-	tokens = (char **)malloc(sizeof(char *));
+	char *copy = strdup(ptr);
+
+	tokens = (char **)malloc(sizeof(char *) * 1);
 	if (tokens == NULL)
 		return (NULL);
 	
@@ -32,4 +30,5 @@ char **token_it(char *ptr, char *del)
 	}
 	tokens[i] = NULL;
 	free(copy);
+	return(tokens);
 }
