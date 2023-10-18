@@ -32,8 +32,6 @@ char *get_cmd()
 				fcmd[j] = cmdline[j];
 				j++;
 			}
-			if (cmdline == e)
-				printf("exit is good");
 /*
 		if (fcmd[0] == "exit")
 		{
@@ -56,4 +54,5 @@ char *get_cmd()
 	*/	
 	return (cmdline);
 	free(cmdline);
+	free(fcmd);
 }}

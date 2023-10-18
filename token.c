@@ -34,7 +34,7 @@ char **token_it(char *ptr, char *del)
 	// maybe need to free the ptr
 	return(tokens);
 }
-
+/*
 int main(void)
 {
 	printf("test\n");
@@ -42,4 +42,4 @@ int main(void)
 	//printf("%s  %s %s %s %s %s %s\n", tok[0], tok[1], tok[2],tok[3], tok[4], tok[5], tok[6]);
 	execute(tok);
 	return 0;
-}
+}*/

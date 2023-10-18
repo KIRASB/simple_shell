@@ -18,7 +18,8 @@ int execute(char **args)
 	while(args[i] != NULL)
 	{
 		copy = (char **)realloc(copy, sizeof(char *) * (i + 2));
-		copy[i] = strdup(args[i]);
+		if (args != NULL)
+			copy[i] = strdup(args[i]);
 		i++;
 	}
 	copy[i] = NULL;

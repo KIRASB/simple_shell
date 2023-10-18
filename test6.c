@@ -29,9 +29,10 @@ char *execute(char **args)
 		if(path_and_file[i] == NULL)
 			return(NULL);
 		strcpy(path_and_file[i], paths[i]);
-                strcat(path_and_file[i], "/");
-                strcat(path_and_file[i], args[0]);
+		strcat(path_and_file[i], "/");
+		strcat(path_and_file[i], args[0]);
                 i++;
+		printf("%s\n", path_and_file[i]);
         }
         i = 0;
         while(path_and_file[i] != NULL)

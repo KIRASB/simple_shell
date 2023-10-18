@@ -6,10 +6,15 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 /** protoypes */
 
-char **get_env();
+int get_env();
+char get_line();
+char *get_cmd();
+char **token_it(char *ptr, char *del);
+int execute(char **args);
 
 #endif

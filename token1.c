@@ -10,7 +10,9 @@ char **token_it(char *ptr, char *del)
 	int i = 0;
 	char *token;
 	char *copy = strdup(ptr); //save the original content;
-
+	
+	if (ptr == NULL || ptr == "\n")
+		return (0);
 	tokens = (char **)malloc(sizeof(char *));
 	if (tokens == NULL)
 		return (NULL);
@@ -40,7 +42,7 @@ char **token_it(char *ptr, char *del)
 	free(copy);
 	return(tokens);
 }
-
+/*
 int main(void)
 {
 	printf("test");
@@ -48,4 +50,4 @@ int main(void)
 	printf("%s", tok[0]);
 	execute(tok);
 	return 0;
-}
+}*/

@@ -25,9 +25,9 @@ int execute(char **args)
 	copy[i] = NULL;
 
 	allpaths = getenv("PATH");
-	printf("1 %s %s\n", copy[0], copy[1]);
+	//printf("1 %s %s\n", copy[0], copy[1]);
 	paths = token_it(allpaths, ":\t\n");
-	printf("2 %s %s\n", copy[0], copy[1]);
+	//printf("2 %s %s\n", copy[0], copy[1]);
 	
 	size = 0;
 	while(paths[size])
@@ -71,7 +71,7 @@ int execute(char **args)
 		if(check == 0)
 		{
 			real_cmd = path_and_file[i];
-			printf("path ------>>> %s\n", real_cmd);
+		//	printf("path ------>>> %s\n", real_cmd);
 			break;
 		}
 		i++;
