@@ -7,7 +7,7 @@ int execute(char **args)
 	char **path_and_file = NULL;
 	char *real_cmd = NULL;
 	ssize_t w_err1, w_err2;
-	int i = 0;
+	int  i = 0;
 	int size = 0;
 	int check;
 	int status;
@@ -39,7 +39,7 @@ int execute(char **args)
 	i = 0;
 	while (paths[i] != NULL && i < size && copy[0][0] != '/')
 	{
-		path_and_file[i] = (char *)malloc(strlen(paths[i]) + strlen(copy[0]) + 2);
+		path_and_file[i] = (char *)malloc(strlen(paths[i]) + _strlen(copy[0]) + 2);
 		if(path_and_file[i] == NULL)
 			return (-1);
 
