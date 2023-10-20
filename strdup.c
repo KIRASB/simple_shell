@@ -32,3 +32,7 @@ char *_strdup(char *str)
 
 	return (dup);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> bb8c18f0fbe4ee20d8284d0b9780af366a9d4089

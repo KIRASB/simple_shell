@@ -19,11 +19,32 @@ int execute(char **args)
 
 	printf("still working 1\n");
 
+<<<<<<< HEAD
 	path_and_file = get_files(args, ":\n\t");
 	real_cmd = check_access(path_and_file);
 	printf("still working for acess\n");
 	check = access(real_cmd, X_OK);
 	if(real_cmd == NULL)
+=======
+	i = 0;
+	while (paths[i] != NULL && i < size && copy[0][0] != '/')
+	{
+		path_and_file[i] = (char *)malloc(strlen(paths[i]) + _strlen(copy[0]) + 2);
+		if(path_and_file[i] == NULL)
+			return (-1);
+
+		_strcat(path_and_file[i], paths[i]);
+		_strcat(path_and_file[i], "/");
+		_strcat(path_and_file[i], copy[0]);
+		i++;
+	}
+	if(copy[0][0] == '/')
+	{
+		path_and_file[0] = _strdup(copy[0]);
+	}
+	i = 0;
+	while(path_and_file[i] != NULL && i < size)
+>>>>>>> bb8c18f0fbe4ee20d8284d0b9780af366a9d4089
 	{
 		printf("not here\n");
 		w_err1 = write(1, args[0], _strlen(args[0]));
