@@ -1,5 +1,9 @@
 #include "shell.h"
-
+/**
+ * execute - take the commadn and execute it
+ * @args: input commands
+ * Return: 0
+ */
 int execute(char **args)
 {
 	char *allpaths = NULL;
@@ -7,84 +11,43 @@ int execute(char **args)
 	char **path_and_file = NULL;
 	char *real_cmd = NULL;
 	ssize_t w_err1, w_err2;
-	int i = 0;
+	int  i = 0;
 	int size = 0;
 	int check;
 	int status;
 	pid_t pid;
-	char **copy;
 
-	copy = (char **)malloc(sizeof(char *));
+	printf("still working 1\n");
 
-	while(args[i] != NULL)
-	{
-		copy = (char **)realloc(copy, sizeof(char *) * (i + 2));
-		copy[i] = _strdup(args[i]);
-		i++;
-	}
-	copy[i] = NULL;
-
-	allpaths = getenv("PATH");
-	paths = token_it(allpaths, ":\t\n");
-	
-	size = 0;
-	while(paths[size])
-	{
-		size++;
-	}
-	path_and_file = (char **)malloc(sizeof(char *) * (size + 1));
-	if (path_and_file == NULL)
-		return (-1);
-
-	i = 0;
-	while (paths[i] != NULL && i < size && copy[0][0] != '/')
-	{
-		path_and_file[i] = (char *)malloc(strlen(paths[i]) + strlen(copy[0]) + 2);
-		if(path_and_file[i] == NULL)
-			return (-1);
-
-		_strcat(path_and_file[i], paths[i]);
-		_strcat(path_and_file[i], "/");
-		_strcat(path_and_file[i], copy[0]);
-		i++;
-	}
-	if(copy[0][0] == '/')
-	{
-		path_and_file[0] = _strdup(copy[0]);
-	}
-	i = 0;
-	while(path_and_file[i] != NULL && i < size)
-	{
-		check = access(path_and_file[i], F_OK);
-		if(check == -1)
-		{
-			free(path_and_file[i]);
-			i++;
-			continue;
-		}
-		if(check == 0)
-		{
-			real_cmd =  _strdup(path_and_file[i]);
-			free(path_and_file[i]);
-			break;
-		}
-		i++;
-	}
-
-	free(path_and_file);
+	path_and_file = get_files(args, ":\n\t");
+	real_cmd = check_access(path_and_file);
+	printf("still working for acess\n");
 	check = access(real_cmd, X_OK);
-	if(check != 0)
+	if(real_cmd == NULL)
 	{
-		w_err1 = write(1, args[0], strlen(args[0]));
-		w_err2 = write(1, " :is not found\n", 15);
+		printf("not here\n");
+		w_err1 = write(1, args[0], _strlen(args[0]));
+		w_err2 = write(1, ": is not found\n", 15);
 		if(w_err1 == -1 || w_err2 == -1)
 		{
 			perror("write");
-			return 1;
+			return (1);
+		}
+	}
+	else if(real_cmd != NULL && check != 0)
+	{
+		printf("here\n");
+		w_err1 = write(1, args[0], _strlen(args[0]));
+		w_err2 = write(1, ": is not found\n", 15);
+		if(w_err1 == -1 || w_err2 == -1)
+		{
+			perror("write");
+			return (1);
 		}
 	}
 	else
 	{
+
 		pid = fork();
 		if(pid == -1)
 		{
@@ -100,7 +63,6 @@ int execute(char **args)
 		{
 			wait(&status);
 		}
-		free(copy);
 		free(real_cmd);
 	}
 	return (0);
