@@ -1,0 +1,6 @@
+!#/bin/bash
+
+/bin/ls
+pwd
+/bin/ls
+date
