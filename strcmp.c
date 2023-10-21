@@ -10,11 +10,7 @@
 
 int _strcmp(char *s1, char *s2)
 {
-<<<<<<< HEAD
 	while (s1 == s2)
-=======
-	while (*s1 == *s2)
->>>>>>> bb8c18f0fbe4ee20d8284d0b9780af366a9d4089
 	{
 		if (*s1 == '\0')
 			return (0);

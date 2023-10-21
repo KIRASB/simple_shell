@@ -2,11 +2,7 @@
 /**
  * token_it - takes a long string and separate cut int into small strings
  * @ptr: pointer point to a string
-<<<<<<< HEAD
  * @del: the delemiter to use for seprating
-=======
- * @del: the delimeter
->>>>>>> bb8c18f0fbe4ee20d8284d0b9780af366a9d4089
  * Return: double pointer contain the list of small strings
  */
 char **token_it(char *ptr, char *del)
@@ -19,13 +15,7 @@ char **token_it(char *ptr, char *del)
 	tokens = (char **)malloc(sizeof(char *) * 1);
 	if (tokens == NULL)
 		return (NULL);
-<<<<<<< HEAD
 	token = strtok(copy, del);
-=======
-
-	token = strtok(copy, del);
-
->>>>>>> bb8c18f0fbe4ee20d8284d0b9780af366a9d4089
 	while (token != NULL)
 	{
 		tokens[i] = _strdup(token);
