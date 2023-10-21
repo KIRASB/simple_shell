@@ -1,9 +1,5 @@
 #include "shell.h"
-/**
- * execute - take the commadn and execute it
- * @args: input commands
- * Return: 0
- */
+
 int execute(char **args)
 {
 	char *allpaths = NULL;
@@ -16,16 +12,30 @@ int execute(char **args)
 	int check;
 	int status;
 	pid_t pid;
+	char **copy;
 
-	printf("still working 1\n");
+	copy = (char **)malloc(sizeof(char *));
 
-<<<<<<< HEAD
-	path_and_file = get_files(args, ":\n\t");
-	real_cmd = check_access(path_and_file);
-	printf("still working for acess\n");
-	check = access(real_cmd, X_OK);
-	if(real_cmd == NULL)
-=======
+	while(args[i] != NULL)
+	{
+		copy = (char **)realloc(copy, sizeof(char *) * (i + 2));
+		copy[i] = _strdup(args[i]);
+		i++;
+	}
+	copy[i] = NULL;
+
+	allpaths = getenv("PATH");
+	paths = token_it(allpaths, ":\t\n");
+	
+	size = 0;
+	while(paths[size])
+	{
+		size++;
+	}
+	path_and_file = (char **)malloc(sizeof(char *) * (size + 1));
+	if (path_and_file == NULL)
+		return (-1);
+
 	i = 0;
 	while (paths[i] != NULL && i < size && copy[0][0] != '/')
 	{
@@ -44,31 +54,37 @@ int execute(char **args)
 	}
 	i = 0;
 	while(path_and_file[i] != NULL && i < size)
->>>>>>> bb8c18f0fbe4ee20d8284d0b9780af366a9d4089
 	{
-		printf("not here\n");
-		w_err1 = write(1, args[0], _strlen(args[0]));
-		w_err2 = write(1, ": is not found\n", 15);
-		if(w_err1 == -1 || w_err2 == -1)
+		check = access(path_and_file[i], F_OK);
+		if(check == -1)
 		{
-			perror("write");
-			return (1);
+			free(path_and_file[i]);
+			i++;
+			continue;
 		}
+		if(check == 0)
+		{
+			real_cmd =  _strdup(path_and_file[i]);
+			free(path_and_file[i]);
+			break;
+		}
+		i++;
 	}
-	else if(real_cmd != NULL && check != 0)
+
+	free(path_and_file);
+	check = access(real_cmd, X_OK);
+	if(check != 0)
 	{
-		printf("here\n");
-		w_err1 = write(1, args[0], _strlen(args[0]));
-		w_err2 = write(1, ": is not found\n", 15);
+		w_err1 = write(1, args[0], strlen(args[0]));
+		w_err2 = write(1, " :is not found\n", 15);
 		if(w_err1 == -1 || w_err2 == -1)
 		{
 			perror("write");
-			return (1);
+			return 1;
 		}
 	}
 	else
 	{
-
 		pid = fork();
 		if(pid == -1)
 		{
@@ -84,6 +100,7 @@ int execute(char **args)
 		{
 			wait(&status);
 		}
+		free(copy);
 		free(real_cmd);
 	}
 	return (0);
