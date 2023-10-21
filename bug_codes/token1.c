@@ -10,7 +10,7 @@ char **token_it(char *ptr, char *del)
 	char **tokens;
 	int i = 0;
 	char *token;
-	char *copy = strdup(ptr);
+	char *copy = _strdup(ptr);
 
 	tokens = (char **)malloc(sizeof(char *) * 1);
 	if (tokens == NULL)

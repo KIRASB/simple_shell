@@ -22,12 +22,12 @@ int main()
 			w_err = write(1, "$ ", 2);
 
 		ret = getline(&cmd, &len, stdin);
-		if(ret != (size_t)-1)
+		if(ret != -1) 
 		{
 			tokens = token_it(cmd, " \t\n");
 			if(tokens[0] == NULL)
 			{
-				free(tokens[0]);
+				//free(tokens[0]);
 				free(tokens);
 				continue;
 			}
@@ -36,7 +36,7 @@ int main()
 
 			if(check1 == 0)
 			{
-				free(cmd);
+				
 				exit(EXIT_SUCCESS);
 			}
 
@@ -46,6 +46,7 @@ int main()
 			else
 			{
 				execute(tokens);
+				free(cmd);
 			}
 		}
 		else
@@ -66,7 +67,9 @@ int main()
 			free(tokens[i]);
 			i++;
 		}
-		free(tokens);
+
+		//free(tokens);
 	}
+//	free(cmd);
 	return (0);
 }

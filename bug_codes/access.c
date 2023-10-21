@@ -13,7 +13,7 @@ char *check_access(char **path_and_file)
 	while(path_and_file[i] != NULL)
 	{
 		check = access(path_and_file[i], F_OK);
-		if(check = 0)
+		if(check == 0)
 		{
 			good_path = path_and_file[i];
 			break;
@@ -24,12 +24,13 @@ char *check_access(char **path_and_file)
 		}
 		i++;
 	}
-	i++;
+	return (good_path);
 	while(path_and_file[i] != NULL)
 	{
 		free(path_and_file[i]);
 		i++;
 	}
 	free(path_and_file);
-	return (good_path);
+	printf("good path is:%s\n", good_path);
+	
 }

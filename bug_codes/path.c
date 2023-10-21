@@ -1,11 +1,11 @@
 #include "shell.h"
 /**
  * get_files - take the command and stick it to all paths
- * @copy: the command
+ * @cmd: the command
  * @del: the delimiter
  * Return: array of the paths with the command
  */
-char **get_files(char **copy, char *del)
+char **get_files(char **cmd, char *del)
 {
 	int size = 0;
 	int i;
@@ -24,19 +24,20 @@ char **get_files(char **copy, char *del)
 		 return (NULL);
 	 i = 0;
 	 
-	 while (paths[i] != NULL && i < size && copy[0][0] != '/')
+	 while (paths[i] != NULL && i < size && cmd[0][0] != '/')
 	 {
-		 path_and_file[i] = (char *)malloc(_strlen(paths[i]) + _strlen(copy[0]) + 2);
+		 path_and_file[i] = (char *)malloc(_strlen(paths[i]) + _strlen(cmd[0]) + 2);
 		 if(path_and_file[i] == NULL)
 			 return (NULL);
-		 _strcat(path_and_file[i], paths[i]);
+		 path_and_file[i] = paths[i];
 		 _strcat(path_and_file[i], "/");
-		 _strcat(path_and_file[i], copy[0]);
-		 printf("%s\n", path_and_file[i]);
+		 _strcat(path_and_file[i], cmd[0]);
+		 //printf("%s\n", path_and_file[i]);
 	 	i++;
 	 }
-	 printf("I am working 3");
-	 if(copy[0][0] == '/')
-		 path_and_file[0] = _strdup(copy[0]);
+//	 printf("I am working 3");
+	 if(cmd[0][0] == '/')
+		 path_and_file[0] = cmd[0];
 	 return (path_and_file);
+	 free(path_and_file);
 }

@@ -17,15 +17,15 @@ int execute(char **args)
 	int status;
 	pid_t pid;
 
-	printf("still working 1\n");
 
 	path_and_file = get_files(args, ":\n\t");
+	printf("the real cmd: %s\n", real_cmd);
 	real_cmd = check_access(path_and_file);
-	printf("still working for acess\n");
+	 printf("the real cmd: %s\n", real_cmd);
 	check = access(real_cmd, X_OK);
 	if(real_cmd == NULL)
 	{
-		printf("not here\n");
+		//printf("not here\n");
 		w_err1 = write(1, args[0], _strlen(args[0]));
 		w_err2 = write(1, ": is not found\n", 15);
 		if(w_err1 == -1 || w_err2 == -1)
@@ -36,7 +36,7 @@ int execute(char **args)
 	}
 	else if(real_cmd != NULL && check != 0)
 	{
-		printf("here\n");
+		//printf("here\n");
 		w_err1 = write(1, args[0], _strlen(args[0]));
 		w_err2 = write(1, ": is not found\n", 15);
 		if(w_err1 == -1 || w_err2 == -1)
